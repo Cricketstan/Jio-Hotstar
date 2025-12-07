@@ -1,64 +1,117 @@
-<html lang="en"> 
-<head> 
-  <meta charset="UTF-8"> 
-  <title>dillzy</title> 
-  <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-  <script src="//content.jwplatform.com/libraries/SAHhwvZq.js"></script> 
-    
-  <style> 
-    body { 
-      margin: 0; 
-    } 
-    .jwplayer { 
-      position: absolute !important; 
-    } 
-    .jwplayer.jw-flag-aspect-mode { 
-      min-height: 100%; 
-      max-height: 100%; 
-    } 
-  </style> 
-</head> 
-<body> 
-  <div id="jwplayerDiv"></div> 
-  
-  <script>
-      const urlParams = new URLSearchParams(window.location.search);
-      const channelID = urlParams.get('id');  // <-- using ?id=username
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Kick Live Player</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-      async function loadKickStream() {
-          if (!channelID) {
-              alert("No ID provided");
-              return;
-          }
+<!-- JWPlayer -->
+<script src="https://cdn.jwplayer.com/libraries/IDzF9Zmk.js"></script>
 
-          // Fetch fresh playback URL
-          const apiURL = "" + 
-              encodeURIComponent("https://kick.com/api/v2/channels/" + channelID);
+<style>
+    body {
+        margin: 0;
+        background: #0d0d0d;
+        font-family: 'Poppins', sans-serif;
+        color: white;
+        text-align: center;
+    }
 
-          const res = await fetch(apiURL);
-          const data = await res.json();
-          const channel = JSON.parse(data.contents);
+    .header {
+        padding: 15px;
+        font-size: 28px;
+        font-weight: 700;
+        background: #111;
+        border-bottom: 2px solid #00ff99;
+        text-transform: uppercase;
+    }
 
-          const stream = channel.playback_url;
+    .banner {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+    }
 
-          if (!stream) {
-              alert("Channel offline or no playback URL available.");
-              return;
-          }
+    #liveBadge {
+        display: none;
+        padding: 6px 14px;
+        background: red;
+        color: white;
+        font-weight: 700;
+        border-radius: 6px;
+        margin-top: 10px;
+        font-size: 16px;
+    }
 
-          // DO NOT CHANGE YOUR PLAYER — ONLY STREAM VALUE SET
-          jwplayer("jwplayerDiv").setup({ 
-              file: stream, 
-              position: 'bottom', 
-              autostart: true, 
-              stretching: "uniform", 
-              width: "100%", 
-              type: "hls"
-          });
-      }
+    #info {
+        margin-top: 10px;
+        font-size: 18px;
+        opacity: 0.8;
+    }
 
-      loadKickStream();
-  </script>
-</body> 
+    #player {
+        width: 100%;
+        max-width: 1000px;
+        margin: 20px auto;
+    }
+</style>
+</head>
+
+<body>
+
+<div id="header" class="header">Loading…</div>
+
+<img id="banner" class="banner" src="" alt="Banner">
+
+<div id="liveBadge">🔴 LIVE</div>
+<div id="info"></div>
+
+<div id="player"></div>
+
+<script>
+const urlParams = new URLSearchParams(window.location.search);
+const USER = urlParams.get("id");
+
+document.getElementById("header").innerHTML = USER + " • LIVE STREAM";
+
+async function loadKickData() {
+    const apiUrl = "https://kick.com/api/v2/channels/" + USER;
+
+    try {
+        const res = await fetch(apiUrl);
+        const data = await res.json();
+
+        document.getElementById("banner").src =
+            data.banner_image?.url || data.offline_banner_image?.src;
+
+        if (data.livestream && data.livestream.is_live === true) {
+            document.getElementById("liveBadge").style.display = "inline-block";
+            document.getElementById("info").innerHTML =
+                "Viewers: " + data.livestream.viewer_count;
+
+            const playback = data.playback_url;
+
+            jwplayer("player").setup({
+                file: playback,
+                width: "100%",
+                aspectratio: "16:9",
+                autostart: true
+            });
+
+        } else {
+            document.getElementById("info").innerHTML = "Currently Offline";
+            document.getElementById("player").innerHTML =
+                "<h3 style='opacity:0.6;'>Stream Offline</h3>";
+        }
+
+    } catch (err) {
+        console.error(err);
+        document.getElementById("info").innerHTML = "Error fetching data";
+    }
+}
+
+loadKickData();
+</script>
+
+</body>
 </html>
