@@ -15,7 +15,6 @@
         overflow: hidden;
     }
 
-    /* Fullscreen Player */
     #player {
         position: fixed;
         top: 0;
@@ -23,10 +22,11 @@
         width: 100vw;
         height: 100vh;
     }
-        .jwplayer.jw-flag-aspect-mode { 
+
+    .jwplayer.jw-flag-aspect-mode { 
       min-height: 100%; 
       max-height: 100%; 
-    } 
+    }
 </style>
 </head>
 
@@ -38,6 +38,9 @@
 const urlParams = new URLSearchParams(window.location.search);
 const USER = urlParams.get("id");
 
+// Proxy prefix
+const PROXY = "https://sony-liv-proxyb.wasmer.app/stream_proxy.php?url=";
+
 async function loadKickData() {
     const apiUrl = "https://kick.com/api/v2/channels/" + USER;
 
@@ -47,7 +50,8 @@ async function loadKickData() {
 
         if (data.livestream && data.livestream.is_live === true) {
 
-            const playback = data.playback_url;
+            // Apply proxy to playback URL
+            const playback = PROXY + encodeURIComponent(data.playback_url);
 
             jwplayer("player").setup({
                 file: playback,
