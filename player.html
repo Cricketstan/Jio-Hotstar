@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Kick Player</title>
+
+<link href="https://vjs.zencdn.net/8.3.0/video-js.css" rel="stylesheet" />
+
+<style>
+body { background:#000; margin:0; padding:20px; color:white; }
+.back-btn {
+  padding:10px 16px; background:#00ffae; 
+  color:black; border-radius:6px; text-decoration:none;
+  font-weight:bold; display:inline-block; margin-bottom:20px;
+}
+</style>
+</head>
+
+<body>
+
+<a href="index.html" class="back-btn">⬅ Back</a>
+
+<video id="kickPlayer" class="video-js vjs-default-skin" controls autoplay preload="auto" width="100%" height="400"></video>
+
+<script src="https://vjs.zencdn.net/8.3.0/video.min.js"></script>
+
+<script>
+// Read ?id=username
+const params = new URLSearchParams(location.search);
+const username = params.get("id");
+
+if(!username){
+    alert("No ID provided!");
+}
+
+// Fetch fresh playback_url
+async function loadStream(){
+    const apiUrl = "https://api.allorigins.win/get?url=" +
+        encodeURIComponent("https://kick.com/api/v2/channels/" + username);
+
+    const res = await fetch(apiUrl);
+    const data = await res.json();
+    const channel = JSON.parse(data.contents);
+
+    const playbackURL = channel.playback_url; // Fresh token every time!
+
+    if(!playbackURL){
+        alert("Channel offline or no stream available.");
+        return;
+    }
+
+    // Load into Video.js player
+    videojs("kickPlayer", {
+        autoplay: true,
+        controls: true,
+        preload: "auto",
+        sources: [{
+            src: playbackURL,
+            type: "application/x-mpegURL"
+        }]
+    });
+}
+
+loadStream();
+</script>
+
+</body>
+</html>
