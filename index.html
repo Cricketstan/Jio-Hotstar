@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Kick Home</title>
+<style>
+body { background:#0d0d0d; color:white; font-family:Arial; padding:20px; }
+.card {
+  background:#1a1a1a; padding:20px; border-radius:12px;
+  max-width:600px; margin:auto; box-shadow:0 0 10px #000;
+}
+.label { color:#00ffae; font-weight:bold; margin-top:10px; }
+button {
+  background:#00ffae; color:black; padding:12px 20px; 
+  border:0; margin-top:20px; font-size:18px; border-radius:8px;
+  cursor:pointer; font-weight:bold;
+}
+img { width:120px; border-radius:10px; margin-top:10px; }
+</style>
+</head>
+
+<body>
+<h2>Kick Channel Viewer</h2>
+
+<div class="card" id="output">Loading…</div>
+
+<script>
+async function loadKick() {
+    const url = "https://api.allorigins.win/get?url=" +
+        encodeURIComponent("https://kick.com/api/v2/channels/chessbrah");
+
+    const res = await fetch(url);
+    const data = await res.json();
+    const channel = JSON.parse(data.contents);
+
+    const username = channel.user.username;
+    const followers = channel.followers_count;
+    const bio = channel.user.bio;
+    const pic = channel.user.profile_pic;
+    const live = channel.livestream ? "🟢 LIVE" : "🔴 Offline";
+
+    document.getElementById("output").innerHTML = `
+        <div class="label">Channel:</div> ${username}
+
+        <div class="label">Bio:</div> ${bio}
+
+        <div class="label">Followers:</div> ${followers}
+
+        <img src="${pic}">
+
+        <div class="label">Status:</div> ${live}
+
+        <button onclick="location.href='player.html?id=${username}'">
+            ▶ Watch Now
+        </button>
+    `;
+}
+loadKick();
+</script>
+
+</body>
+</html>
