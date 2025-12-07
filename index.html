@@ -1,58 +1,222 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Kick Home</title>
+<title>Dillzy</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;900&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
 <style>
-body { background:#0d0d0d; color:white; font-family:Arial; padding:20px; }
+:root {
+    --bg: #02040a;
+    --blue: #0ea5e9;
+    --purple: #a855f7;
+    --gold: #f59e0b;
+    --red-live: #ff073a;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--bg);
+    background-image:
+        radial-gradient(circle at 20% 20%, rgba(14,165,233,0.22), transparent 40%),
+        radial-gradient(circle at 80% 80%, rgba(245,158,11,0.12), transparent 40%),
+        radial-gradient(circle at 50% 50%, rgba(168,85,247,0.15), transparent 40%);
+    background-attachment: fixed;
+    margin: 0;
+    padding: 15px;
+    color: white;
+}
+
+.header-box {
+    text-align: center;
+    padding: 40px 10px 15px;
+}
+
+.header-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 48px;
+    font-weight: 900;
+    background: linear-gradient(90deg, var(--blue), var(--purple), var(--gold));
+    -webkit-background-clip: text;
+    color: transparent;
+    text-shadow: 0 0 45px rgba(14,165,233,0.55);
+    margin: 0;
+}
+
+.header-sub {
+    font-family: 'Poppins', sans-serif;
+    color: #b8c0cc;
+    font-size: 16px;
+    margin-top: 8px;
+    font-weight: 500;
+}
+
 .card {
-  background:#1a1a1a; padding:20px; border-radius:12px;
-  max-width:600px; margin:auto; box-shadow:0 0 10px #000;
+    background: rgba(15,23,42,0.55);
+    border: 1px solid rgba(255,255,255,0.08);
+    backdrop-filter: blur(18px);
+    padding: 22px;
+    border-radius: 18px;
+    max-width: 520px;
+    margin: 22px auto;
+    box-shadow: 0 0 22px rgba(14,165,233,0.25);
+    animation: fadeIn 0.4s ease-out;
 }
-.label { color:#00ffae; font-weight:bold; margin-top:10px; }
+
+.label {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--blue);
+    font-weight: 600;
+    margin-top: 12px;
+    font-size: 15px;
+}
+
+.value {
+    color: #dce6f3;
+    margin-top: 4px;
+    font-size: 16px;
+}
+
+/* PREMIUM RED LIVE BADGE */
+.live-badge {
+    display: inline-flex;
+    align-items: center;
+    background: linear-gradient(135deg, #ff0033, #ff4d6d);
+    color: white;
+    padding: 4px 12px;
+    font-size: 13px;
+    font-weight: 800;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(255,0,55,0.8);
+    letter-spacing: 1px;
+    animation: pulseLive 1.4s infinite;
+    margin-left: 6px;
+}
+
+.live-dot {
+    width: 10px;
+    height: 10px;
+    background: #ffffff;
+    border-radius: 50%;
+    margin-right: 6px;
+}
+
+@keyframes pulseLive {
+    0% { transform: scale(1); box-shadow: 0 0 10px rgba(255,0,55,0.7); }
+    50% { transform: scale(1.08); box-shadow: 0 0 22px rgba(255,0,55,1); }
+    100% { transform: scale(1); box-shadow: 0 0 10px rgba(255,0,55,0.7); }
+}
+
+.offline-badge {
+    display: inline-block;
+    background: #444;
+    color: white;
+    padding: 4px 10px;
+    font-size: 12px;
+    font-weight: 700;
+    border-radius: 6px;
+    letter-spacing: 1px;
+}
+
+.profile-pic {
+    width: 100px;
+    border-radius: 12px;
+    margin-top: 15px;
+    border: 2px solid var(--blue);
+}
+
+.thumb {
+    width: 100%;
+    border-radius: 14px;
+    margin-top: 20px;
+    border: 2px solid var(--blue);
+    box-shadow: 0 0 18px rgba(14,165,233,0.45);
+}
+
 button {
-  background:#00ffae; color:black; padding:12px 20px; 
-  border:0; margin-top:20px; font-size:18px; border-radius:8px;
-  cursor:pointer; font-weight:bold;
+    width: 100%;
+    background: linear-gradient(135deg, var(--blue), #38bdf8);
+    color: black;
+    padding: 15px;
+    border: none;
+    border-radius: 12px;
+    font-size: 18px;
+    font-weight: 700;
+    font-family: 'Montserrat', sans-serif;
+    margin-top: 26px;
+    cursor: pointer;
+    box-shadow: 0 6px 26px rgba(14,165,233,0.5);
+    transition: 0.3s;
 }
-img { width:120px; border-radius:10px; margin-top:10px; }
+
+button:hover {
+    transform: translateY(-3px) scale(1.04);
+    box-shadow: 0 10px 38px rgba(14,165,233,0.8);
+}
+
+@media (max-width: 480px) {
+    .header-title { font-size: 34px; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+}
 </style>
 </head>
 
 <body>
-<h2>Kick Channel Viewer</h2>
+
+<div class="header-box">
+    <h1 class="header-title">DILLZY LIVE</h1>
+    <p class="header-sub">Powered by Dillzy</p>
+</div>
 
 <div class="card" id="output">Loading…</div>
 
 <script>
 async function loadKick() {
+    const channelName = "chessbrah";
+
     const url = "https://api.allorigins.win/get?url=" +
-        encodeURIComponent("https://kick.com/api/v2/channels/chessbrah");
+        encodeURIComponent(`https://kick.com/api/v2/channels/${channelName}`);
 
     const res = await fetch(url);
     const data = await res.json();
     const channel = JSON.parse(data.contents);
 
     const username = channel.user.username;
-    const followers = channel.followers_count;
-    const bio = channel.user.bio;
+    const followers = channel.followers_count?.toLocaleString();
+    const bio = channel.user.bio || "No bio available";
     const pic = channel.user.profile_pic;
-    const live = channel.livestream ? "🟢 LIVE" : "🔴 Offline";
+
+    const liveThumb = channel.livestream?.thumbnail?.url;
+    const offlineBanner = channel.offline_banner_image?.src;
+    const bannerImage = channel.banner_image?.url;
+
+    let finalThumb = liveThumb || offlineBanner || bannerImage;
+
+    const statusHTML = liveThumb
+        ? `<span class='live-badge'><span class='live-dot'></span>LIVE</span>`
+        : `<span class='offline-badge'>OFFLINE</span>`;
 
     document.getElementById("output").innerHTML = `
-        <div class="label">Channel:</div> ${username}
+        <div class="label">Channel</div>
+        <div class="value">${username} ${statusHTML}</div>
 
-        <div class="label">Bio:</div> ${bio}
+        <div class="label">Bio</div>
+        <div class="value">${bio}</div>
 
-        <div class="label">Followers:</div> ${followers}
+        <div class="label">Followers</div>
+        <div class="value">${followers}</div>
 
-        <img src="${pic}">
+        <img src="${pic}" class="profile-pic">
 
-        <div class="label">Status:</div> ${live}
+        ${finalThumb ? `<img src="${finalThumb}" class="thumb">` : ""}
 
-        <button onclick="location.href='player.html?id=${username}'">
-            ▶ Watch Now
-        </button>
+        <button onclick="location.href='player.html?id=${username}'">▶ Watch Stream</button>
     `;
 }
 loadKick();
