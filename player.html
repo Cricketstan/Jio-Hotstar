@@ -11,6 +11,7 @@
 <style>
     body { 
       margin: 0; 
+      background: #000;
     } 
     .jwplayer { 
       position: absolute !important; 
@@ -33,7 +34,20 @@ const USER = urlParams.get("id");
 // Proxy prefix
 const PROXY = "https://sony-liv-proxyb.wasmer.app/stream_proxy.php?url=";
 
+// TEST M3U8 (Always Works)
+const TEST_STREAM = "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8";
+
 async function loadKickData() {
+    // If no ID → play test stream
+    if (!USER) {
+        jwplayer("player").setup({
+            file: TEST_STREAM,
+            
+            autostart: true
+        });
+        return;
+    }
+
     const apiUrl = "https://kick.com/api/v2/channels/" + USER;
 
     try {
@@ -47,9 +61,8 @@ async function loadKickData() {
 
             jwplayer("player").setup({
                 file: playback,
-                width: "100%",
-                height: "100%",
-                stretching: "fill",
+                
+                
                 autostart: true
             });
 
