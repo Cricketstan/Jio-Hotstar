@@ -5,26 +5,35 @@
 <title>Kick Live Player</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- JWPlayer -->
-<script src="https://cdn.jwplayer.com/libraries/IDzF9Zmk.js"></script>
+<!-- Plyr CSS -->
+<link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
 
 <style>
-    body { 
-      margin: 0; 
-    } 
-    .jwplayer { 
-      position: absolute !important; 
-    } 
-    .jwplayer.jw-flag-aspect-mode { 
-      min-height: 100%; 
-      max-height: 100%; 
-    } 
+    body {
+        margin: 0;
+        background: black;
+    }
+
+    .plyr {
+        height: 100%;
+        width: 100%;
+    }
+
+    #player-container {
+        height: 100vh;
+        width: 100vw;
+    }
 </style>
 </head>
 
 <body>
 
-<div id="player"></div>
+<div id="player-container">
+    <video id="player" class="plyr" controls autoplay playsinline></video>
+</div>
+
+<!-- Plyr JS -->
+<script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
 
 <script>
 const urlParams = new URLSearchParams(window.location.search);
@@ -32,6 +41,12 @@ const USER = urlParams.get("id");
 
 // Proxy prefix
 const PROXY = "https://sony-liv-proxyb.wasmer.app/stream_proxy.php?url=";
+
+// Initialize Plyr
+const player = new Plyr('#player', {
+    autoplay: true,
+    controls: ['play', 'pause', 'progress', 'volume', 'fullscreen']
+});
 
 async function loadKickData() {
     const apiUrl = "https://kick.com/api/v2/channels/" + USER;
@@ -42,25 +57,21 @@ async function loadKickData() {
 
         if (data.livestream && data.livestream.is_live === true) {
 
-            // Apply proxy to playback URL
+            // Apply proxy
             const playback = PROXY + encodeURIComponent(data.playback_url);
 
-            jwplayer("player").setup({
-                file: playback,
-                width: "100%",
-                height: "100%",
-                stretching: "fill",
-                autostart: true
-            });
+            // Load stream into Plyr
+            const video = document.getElementById("player");
+            video.src = playback;
 
         } else {
-            document.getElementById("player").innerHTML =
+            document.getElementById("player-container").innerHTML =
                 "<h2 style='color:white;text-align:center;margin-top:40vh;opacity:0.6;'>Stream Offline</h2>";
         }
 
     } catch (err) {
         console.error(err);
-        document.getElementById("player").innerHTML =
+        document.getElementById("player-container").innerHTML =
             "<h2 style='color:white;text-align:center;margin-top:40vh;'>Error Loading Stream</h2>";
     }
 }
