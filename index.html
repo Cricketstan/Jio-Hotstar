@@ -1,225 +1,150 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Dillzy</title>
+<meta charset="UTF-8" />
+<title>Kick Live – Home</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;900&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-
 <style>
-:root {
-    --bg: #02040a;
-    --blue: #0ea5e9;
-    --purple: #a855f7;
-    --gold: #f59e0b;
-    --red-live: #ff073a;
-}
+    body {
+        margin: 0;
+        background: #0d0d0d;
+        font-family: 'Poppins', sans-serif;
+        color: white;
+        text-align: center;
+        padding-bottom: 40px;
+    }
 
-body {
-    font-family: 'Poppins', sans-serif;
-    background-color: var(--bg);
-    background-image:
-        radial-gradient(circle at 20% 20%, rgba(14,165,233,0.22), transparent 40%),
-        radial-gradient(circle at 80% 80%, rgba(245,158,11,0.12), transparent 40%),
-        radial-gradient(circle at 50% 50%, rgba(168,85,247,0.15), transparent 40%);
-    background-attachment: fixed;
-    margin: 0;
-    padding: 15px;
-    color: white;
-}
+    .header {
+        font-size: 30px;
+        font-weight: 700;
+        padding: 20px;
+        background: #111;
+        border-bottom: 2px solid #00ff99;
+    }
 
-.header-box {
-    text-align: center;
-    padding: 40px 10px 15px;
-}
+    .channel-card {
+        max-width: 500px;
+        background: #161616;
+        margin: 30px auto;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 0 20px rgba(0,255,150,0.2);
+    }
 
-.header-title {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 48px;
-    font-weight: 900;
-    background: linear-gradient(90deg, var(--blue), var(--purple), var(--gold));
-    -webkit-background-clip: text;
-    color: transparent;
-    text-shadow: 0 0 45px rgba(14,165,233,0.55);
-    margin: 0;
-}
+    .banner {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+    }
 
-.header-sub {
-    font-family: 'Poppins', sans-serif;
-    color: #b8c0cc;
-    font-size: 16px;
-    margin-top: 8px;
-    font-weight: 500;
-}
+    .title {
+        padding: 15px;
+        font-size: 24px;
+        font-weight: 700;
+    }
 
-.card {
-    background: rgba(15,23,42,0.55);
-    border: 1px solid rgba(255,255,255,0.08);
-    backdrop-filter: blur(18px);
-    padding: 22px;
-    border-radius: 18px;
-    max-width: 520px;
-    margin: 22px auto;
-    box-shadow: 0 0 22px rgba(14,165,233,0.25);
-    animation: fadeIn 0.4s ease-out;
-}
+    .status {
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
 
-.label {
-    font-family: 'Montserrat', sans-serif;
-    color: var(--blue);
-    font-weight: 600;
-    margin-top: 12px;
-    font-size: 15px;
-}
+    .live {
+        color: #ff4444;
+        font-weight: bold;
+    }
 
-.value {
-    color: #dce6f3;
-    margin-top: 4px;
-    font-size: 16px;
-}
+    .offline {
+        color: #888;
+    }
 
-/* PREMIUM RED LIVE BADGE */
-.live-badge {
-    display: inline-flex;
-    align-items: center;
-    background: linear-gradient(135deg, #ff0033, #ff4d6d);
-    color: white;
-    padding: 4px 12px;
-    font-size: 13px;
-    font-weight: 800;
-    border-radius: 8px;
-    box-shadow: 0 0 15px rgba(255,0,55,0.8);
-    letter-spacing: 1px;
-    animation: pulseLive 1.4s infinite;
-    margin-left: 6px;
-}
+    .viewers {
+        margin-bottom: 15px;
+        opacity: 0.7;
+    }
 
-.live-dot {
-    width: 10px;
-    height: 10px;
-    background: #ffffff;
-    border-radius: 50%;
-    margin-right: 6px;
-}
+    button {
+        background: #00ff99;
+        color: #000;
+        padding: 14px 22px;
+        border: none;
+        border-radius: 6px;
+        font-size: 18px;
+        font-weight: 700;
+        cursor: pointer;
+        margin-bottom: 20px;
+    }
 
-@keyframes pulseLive {
-    0% { transform: scale(1); box-shadow: 0 0 10px rgba(255,0,55,0.7); }
-    50% { transform: scale(1.08); box-shadow: 0 0 22px rgba(255,0,55,1); }
-    100% { transform: scale(1); box-shadow: 0 0 10px rgba(255,0,55,0.7); }
-}
-
-.offline-badge {
-    display: inline-block;
-    background: #444;
-    color: white;
-    padding: 4px 10px;
-    font-size: 12px;
-    font-weight: 700;
-    border-radius: 6px;
-    letter-spacing: 1px;
-}
-
-.profile-pic {
-    width: 100px;
-    border-radius: 12px;
-    margin-top: 15px;
-    border: 2px solid var(--blue);
-}
-
-.thumb {
-    width: 100%;
-    border-radius: 14px;
-    margin-top: 20px;
-    border: 2px solid var(--blue);
-    box-shadow: 0 0 18px rgba(14,165,233,0.45);
-}
-
-button {
-    width: 100%;
-    background: linear-gradient(135deg, var(--blue), #38bdf8);
-    color: black;
-    padding: 15px;
-    border: none;
-    border-radius: 12px;
-    font-size: 18px;
-    font-weight: 700;
-    font-family: 'Montserrat', sans-serif;
-    margin-top: 26px;
-    cursor: pointer;
-    box-shadow: 0 6px 26px rgba(14,165,233,0.5);
-    transition: 0.3s;
-}
-
-button:hover {
-    transform: translateY(-3px) scale(1.04);
-    box-shadow: 0 10px 38px rgba(14,165,233,0.8);
-}
-
-@media (max-width: 480px) {
-    .header-title { font-size: 34px; }
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(12px); }
-    to { opacity: 1; transform: translateY(0); }
-}
+    input {
+        width: 80%;
+        max-width: 330px;
+        margin-top: 25px;
+        padding: 12px;
+        font-size: 18px;
+        border-radius: 8px;
+        border: none;
+        outline: none;
+        text-align: center;
+    }
 </style>
 </head>
 
 <body>
 
-<div class="header-box">
-    <h1 class="header-title">DILLZY LIVE</h1>
-    <p class="header-sub">Powered by Dillzy</p>
-</div>
+<div class="header">Kick Live Viewer</div>
 
-<div class="card" id="output">Loading…</div>
+<input id="username" placeholder="Enter Kick Username (ex: chessbrah)" oninput="loadChannel()">
+
+<div id="output"></div>
+
 
 <script>
-async function loadKick() {
-    const channelName = "chessbrah";
+async function loadChannel() {
+    const user = document.getElementById("username").value.trim();
+    if (user.length < 3) {
+        document.getElementById("output").innerHTML = "";
+        return;
+    }
 
-    const url = "" +
-        encodeURIComponent(`https://kick.com/api/v2/channels/${channelName}`);
+    const apiUrl = "https://kick.com/api/v2/channels/" + user;
 
-    const res = await fetch(url);
-    const data = await res.json();
-    const channel = JSON.parse(data.contents);
+    try {
+        const res = await fetch(apiUrl);
+        if (!res.ok) throw new Error("User not found");
 
-    const username = channel.user.username;
-    const followers = channel.followers_count?.toLocaleString();
-    const bio = channel.user.bio || "No bio available";
-    const pic = channel.user.profile_pic;
+        const data = await res.json();
 
-    const liveThumb = channel.livestream?.thumbnail?.url;
-    const offlineBanner = channel.offline_banner_image?.src;
-    const bannerImage = channel.banner_image?.url;
+        const banner = data.banner_image?.url || data.offline_banner_image?.src;
+        const live = data.livestream?.is_live === true;
+        const viewers = data.livestream?.viewer_count || 0;
 
-    let finalThumb = liveThumb || offlineBanner || bannerImage;
+        document.getElementById("output").innerHTML = `
+            <div class="channel-card">
+                <img class="banner" src="${banner}">
+                <div class="title">${data.slug.toUpperCase()}</div>
 
-    const statusHTML = liveThumb
-        ? `<span class='live-badge'><span class='live-dot'></span>LIVE</span>`
-        : `<span class='offline-badge'>OFFLINE</span>`;
+                <div class="status ${live ? "live" : "offline"}">
+                    ${live ? "🔴 LIVE" : "⚫ OFFLINE"}
+                </div>
 
-    document.getElementById("output").innerHTML = `
-        <div class="label">Channel</div>
-        <div class="value">${username} ${statusHTML}</div>
+                ${
+                    live
+                    ? `<div class="viewers">👁 Viewers: ${viewers}</div>`
+                    : `<div class="viewers">Stream is currently offline</div>`
+                }
 
-        <div class="label">Bio</div>
-        <div class="value">${bio}</div>
-
-        <div class="label">Followers</div>
-        <div class="value">${followers}</div>
-
-        <img src="${pic}" class="profile-pic">
-
-        ${finalThumb ? `<img src="${finalThumb}" class="thumb">` : ""}
-
-        <button onclick="location.href='player.html?id=${username}'">▶ Watch Stream</button>
-    `;
+                <button onclick="watchNow('${user}')">WATCH NOW</button>
+            </div>
+        `;
+    } catch (err) {
+        document.getElementById("output").innerHTML =
+            `<p style='margin-top:20px; opacity:0.6;'>Channel not found</p>`;
+    }
 }
-loadKick();
+
+function watchNow(user) {
+    window.location.href = "player.html?id=" + user;
+}
 </script>
 
 </body>
