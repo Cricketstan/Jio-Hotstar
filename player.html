@@ -39,7 +39,7 @@ const urlParams = new URLSearchParams(window.location.search);
 const USER = urlParams.get("id");
 
 // Proxy prefix
-const PROXY = "https://sony-liv-proxyb.wasmer.app/stream_proxy.php?url=";
+const PROXY = "";
 
 async function loadKickData() {
     const apiUrl = "https://kick.com/api/v2/channels/" + USER;
